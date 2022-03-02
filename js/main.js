@@ -6,7 +6,10 @@ const searchPhones = () => {
     searchPhone.value = '';
     document.getElementById('error').style.display = 'none';
     if (searchPhoneName == '') {
-
+        const phoneSearchResult = document.getElementById('phone-result');
+        phoneSearchResult.textContent = '';
+        const phoneDetails = document.getElementById('phone-details');
+        phoneDetails.textContent = '';
         document.getElementById('error').style.display = 'block';
 
     }
@@ -56,7 +59,7 @@ const phoneResults = (phones) => {
 
 
 const phoneDetail = phoneId =>{
-    console.log(phoneId);
+    
      const url = `https://openapi.programming-hero.com/api/phone/${phoneId}`;
      console.log(url);
      fetch(url)
@@ -66,7 +69,7 @@ const phoneDetail = phoneId =>{
 
 
 const singlePhoneDetails = details =>{
-    console.log(details);
+    
     const phoneDetails = document.getElementById('phone-details');
     phoneDetails.textContent = '';
     const div = document.createElement('div');
