@@ -1,26 +1,44 @@
+document.getElementById('error').style.display = 'none';
 const searchPhones = () => {
     const searchPhone = document.getElementById('search-field');
     const searchPhoneName = searchPhone.value;
     // clear data
     searchPhone.value = '';
+    document.getElementById('error').style.display = 'none';
+    if (searchPhoneName == '') {
 
+        document.getElementById('error').style.display = 'block';
+
+    }
+    else {
     // load data
     const url = `https://openapi.programming-hero.com/api/phones?search=${searchPhoneName}`;
     fetch(url)
         .then(res => res.json())
-        .then(data => phoneResults(data.data.slice(0,10)))
+        .then(data => phoneResults(data.data.slice(0,20)))
+        .catch(err => errorMessage(err));
+    }
 
+}
+
+const errorMessage = (err) => {
+    document.getElementById('error').style.display = 'block';
 }
 
 const phoneResults = (phones) => {
     const phoneSearchResult = document.getElementById('phone-result');
     phoneSearchResult.textContent = '';
+    if (phones.length == 0) {
+        document.getElementById('error').style.display = 'block';
+    }
+    const phoneDetails = document.getElementById('phone-details');
+    phoneDetails.textContent = '';
     phones.forEach(phone => {
         const div = document.createElement('div');
         div.classList.add('col');
         div.innerHTML = `
                 <div  class="card">
-                    <img src="${phone.image}" class="card-img-top w-50" alt="...">
+                    <img src="${phone.image}" class="card-img-top mx-auto w-50" alt="...">
                     <div class="card-body">
                     <h3 class="card-title">${phone.phone_name}</h3>
                     <h5 class="card-title-1">${phone.brand}</h5>
